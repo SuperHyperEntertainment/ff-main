@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // The characters we want to pull from
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()<>{}[]/?';
-    const amountOfSymbols = 120; // Change this to add more or fewer symbols
+    const amountOfSymbols = 120; // Number of floating symbols
 
     for (let i = 0; i < amountOfSymbols; i++) {
         const span = document.createElement('span');
