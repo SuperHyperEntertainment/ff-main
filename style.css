@@ -11,28 +11,32 @@
     --glass-border: rgba(255, 255, 255, 0.1);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: var(--font-main);
     background-color: var(--bg-color);
     color: var(--text-main);
-    height: 100vh;
+    overflow-x: hidden; /* Crucial: Allows vertical scroll, hides horizontal bug */
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* Prevents background symbols from causing scrollbars */
 }
 
 /* --- BACKGROUND SYMBOLS --- */
 #bg-symbols {
-    position: fixed;
+    position: fixed; /* Keeps symbols frozen in place while you scroll */
     top: 0; left: 0; width: 100vw; height: 100vh;
     z-index: -1;
-    pointer-events: none; /* Lets you click 'through' the symbols */
+    pointer-events: none;
 }
 .bg-char {
     position: absolute;
-    color: rgba(255, 255, 255, 0.04); /* Very faint white */
+    color: rgba(255, 255, 255, 0.04);
     font-weight: 800;
     font-family: monospace;
     user-select: none;
@@ -61,23 +65,72 @@ body {
 .text-btn:hover { color: var(--text-main); }
 
 /* --- NAVIGATION --- */
-.top-nav {
+.sticky-nav {
+    position: sticky;
+    top: 16px;
+    z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
-    padding: 16px 32px; margin: 24px;
+    padding: 16px 32px; margin: 0 24px;
 }
 .brand { font-size: 1.5rem; font-weight: 800; color: var(--accent); }
 .nav-actions { display: flex; gap: 24px; align-items: center; }
 
-/* --- HERO SECTION --- */
+/* --- MAIN CONTENT & TYPOGRAPHY --- */
+.scrolling-content {
+    display: flex; flex-direction: column; gap: 80px; padding: 40px 24px;
+    max-width: 1000px; margin: 0 auto; width: 100%;
+}
+
 .hero-section {
-    flex-grow: 1; display: flex; justify-content: center; align-items: center; padding: 24px;
+    text-align: center;
+    padding: 60px 0;
+    display: flex; flex-direction: column; gap: 16px;
 }
-.hero-box {
-    max-width: 600px; padding: 48px; text-align: center; display: flex; flex-direction: column; gap: 24px;
+.mega-title {
+    font-size: 5rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, var(--text-main), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
-.hero-box h1 { font-size: 2.5rem; line-height: 1.2; }
-.hero-desc { color: var(--text-muted); line-height: 1.6; font-size: 1.1rem; }
-.cta-btn { font-size: 1.2rem; padding: 16px 32px; align-self: center; }
+.hero-subtitle {
+    font-size: 1.5rem; color: var(--text-muted); font-weight: 500;
+}
+
+.info-section {
+    padding: 48px;
+    display: flex; flex-direction: column; gap: 24px;
+}
+.info-section h2 { font-size: 2rem; color: var(--accent); }
+.info-section p { font-size: 1.1rem; line-height: 1.6; color: var(--text-muted); }
+
+/* --- STEPS GRID --- */
+.steps-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 16px;
+}
+.step-card {
+    background: rgba(0,0,0,0.2); padding: 24px; border-radius: 12px;
+    display: flex; flex-direction: column; gap: 12px; border: 1px solid var(--glass-border);
+}
+.step-number {
+    width: 40px; height: 40px; background: var(--accent); color: white;
+    display: flex; justify-content: center; align-items: center;
+    border-radius: 50%; font-weight: 800; font-size: 1.2rem;
+}
+.step-card h3 { color: var(--text-main); font-size: 1.2rem; }
+.step-card p { font-size: 0.95rem; }
+
+/* --- FOOTER --- */
+.main-footer {
+    margin: 40px 24px 24px 24px; padding: 48px; text-align: center;
+}
+.footer-content {
+    display: flex; flex-direction: column; align-items: center; gap: 24px;
+}
+.footer-content h2 { font-size: 1.8rem; }
+.cta-btn { font-size: 1.2rem; padding: 16px 32px; }
+.gemini-credit { font-size: 0.85rem; color: var(--text-muted); margin-top: 16px; font-style: italic; }
 
 /* --- HELP MODAL --- */
 .modal {
@@ -98,8 +151,11 @@ body {
 .close-btn { margin-top: 8px; }
 
 /* --- MOBILE RESPONSIVENESS --- */
-@media (max-width: 600px) {
-    .top-nav { margin: 16px; padding: 16px; }
-    .hero-box { padding: 32px 24px; }
-    .hero-box h1 { font-size: 2rem; }
+@media (max-width: 768px) {
+    .sticky-nav { margin: 0 12px; padding: 16px; top: 12px; }
+    .mega-title { font-size: 3.5rem; }
+    .hero-subtitle { font-size: 1.1rem; }
+    .scrolling-content { padding: 40px 16px; gap: 40px; }
+    .info-section { padding: 32px 20px; }
+    .main-footer { margin: 24px 12px; padding: 32px 16px; }
 }
