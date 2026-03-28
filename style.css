@@ -1,0 +1,105 @@
+:root {
+    --accent: #6366f1;
+    --accent-hover: color-mix(in srgb, var(--accent) 80%, white);
+    --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    
+    /* Dark Mode Defaults */
+    --bg-color: #0f172a;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --glass-bg: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Prevents background symbols from causing scrollbars */
+}
+
+/* --- BACKGROUND SYMBOLS --- */
+#bg-symbols {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: -1;
+    pointer-events: none; /* Lets you click 'through' the symbols */
+}
+.bg-char {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.04); /* Very faint white */
+    font-weight: 800;
+    font-family: monospace;
+    user-select: none;
+}
+
+/* --- GLASSMORPHISM --- */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* --- BUTTONS --- */
+.pro-btn {
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+    color: white; border: none; padding: 10px 20px; border-radius: 8px;
+    font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.pro-btn:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
+.pro-btn:active { transform: scale(0.95); }
+.text-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1rem; font-weight: 500; transition: color 0.2s; }
+.text-btn:hover { color: var(--text-main); }
+
+/* --- NAVIGATION --- */
+.top-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 32px; margin: 24px;
+}
+.brand { font-size: 1.5rem; font-weight: 800; color: var(--accent); }
+.nav-actions { display: flex; gap: 24px; align-items: center; }
+
+/* --- HERO SECTION --- */
+.hero-section {
+    flex-grow: 1; display: flex; justify-content: center; align-items: center; padding: 24px;
+}
+.hero-box {
+    max-width: 600px; padding: 48px; text-align: center; display: flex; flex-direction: column; gap: 24px;
+}
+.hero-box h1 { font-size: 2.5rem; line-height: 1.2; }
+.hero-desc { color: var(--text-muted); line-height: 1.6; font-size: 1.1rem; }
+.cta-btn { font-size: 1.2rem; padding: 16px 32px; align-self: center; }
+
+/* --- HELP MODAL --- */
+.modal {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px);
+    display: none; justify-content: center; align-items: center; z-index: 1000;
+    opacity: 0; transition: opacity 0.3s ease;
+}
+.modal.active { display: flex; opacity: 1; }
+.modal-content {
+    padding: 40px; max-width: 400px; text-align: center; display: flex; flex-direction: column; gap: 20px;
+    transform: translateY(20px); transition: transform 0.3s ease;
+}
+.modal.active .modal-content { transform: translateY(0); }
+.modal-content h2 { color: var(--accent); }
+.modal-content p { color: var(--text-muted); line-height: 1.5; }
+.email-btn { width: 100%; font-size: 1.1rem; padding: 14px; }
+.close-btn { margin-top: 8px; }
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 600px) {
+    .top-nav { margin: 16px; padding: 16px; }
+    .hero-box { padding: 32px 24px; }
+    .hero-box h1 { font-size: 2rem; }
+}
